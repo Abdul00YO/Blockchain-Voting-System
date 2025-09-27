@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blockchain Voting DApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <nav class="navbar">
+  <a href="/" class="nav-link">Home</a>
+  <a href="/about" class="nav-link">About</a>
+</nav>
+
+  <style>
+    /* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  background-color: var(--primary);
+  padding: 15px 0;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.nav-link {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: var(--primary-dark);
+  box-shadow: 0 0 10px var(--primary-dark);
+  outline: none;
+}
+
+    :root {
+      --primary: #2563eb; /* blue */
+      --primary-dark: #1d4ed8;
+      --secondary: #e0e7ff;
+      --background: #f0f4ff;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --success: #16a34a;
+      --error: #dc2626;
+      --info: #3b82f6;
+      --shadow: rgba(37, 99, 235, 0.2);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 2.2rem;
+    }
+
+    p.description {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 30px auto;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    input, select, button {
+      padding: 12px;
+      font-size: 1rem;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 500px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      max-width: 500px;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: var(--primary-dark);
+    }
+
+    button:disabled {
+      background-color: #a5b4fc;
+      cursor: not-allowed;
+    }
+
+    .status-bar {
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-align: center;
+      background-color: var(--secondary);
+      color: var(--primary-dark);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    #wallet-address {
+      font-family: monospace;
+      background-color: var(--secondary);
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      word-break: break-word;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    #vote-counts {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #vote-counts li {
+      padding: 8px 14px;
+      background-color: var(--secondary);
+      margin-bottom: 8px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      box-shadow: 0 1px 3px var(--shadow);
+    }
+
+    #voteChart {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px var(--shadow);
+      background-color: white;
+      padding: 20px;
+    }
+
+    .btn-secondary {
+      background-color: #3b82f6;
+      color: white;
+      border-radius: 8px;
+      padding: 12px 25px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      max-width: 500px;
+      display: block;
+      margin: 20px auto 0;
+      transition: background-color 0.3s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: #2563eb;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .section-paragraph {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+
+  <h1>Blockchain Voting DApp</h1>
+  <p class="description">
+    Welcome to our decentralized voting platform powered by blockchain technology. This application ensures transparency,
+    security, and anonymity for voters. Follow the instructions below to cast your vote and view real-time results.
+  </p>
+
+  <div id="status" class="status-bar">🔐 Please connect your wallet to begin voting.</div>
+
+  <div class="card center">
+    <h2>Step 1: Connect Your Wallet</h2>
+    <p class="section-paragraph">
+      To participate in the voting process, connect your MetaMask or Web3-compatible wallet. Your wallet address will
+      serve as a unique identifier and prevent duplicate voting.
+    </p>
+    <button id="connect-button">🔗 Connect Wallet</button>
+    <div>
+      <label>Your Wallet Address:</label>
+      <div id="wallet-address">Not connected</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Step 2: Enter Voter Details</h2>
+    <p class="section-paragraph">
+      Please provide your name and age to proceed. Note: Only individuals aged 18 or above are allowed to vote.
+    </p>
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" placeholder="Enter your name" required>
+
+    <label for="age">Your Age:</label>
+    <input type="number" id="age" placeholder="Enter your age" required min="18">
+
+    <label for="candidate-select">Select Candidate:</label>
+    <select id="candidate-select">
+      <option value="">-- Select Candidate --</option>
+      <option value="Alice">Alice</option>
+      <option value="Bob">Bob</option>
+      <option value="Charlie">Charlie</option>
+    </select>
+
+    <button id="vote-button" disabled>🗳️ Submit Vote</button>
+  </div>
+
+  <div class="card" id="summary">
+    <h2>Voting Summary</h2>
+    <p class="section-paragraph">
+      View your vote, total votes cast so far, and the current leading candidate(s). These statistics are updated in real-time.
+    </p>
+    <p><strong>Total Votes Cast:</strong> <span id="total-votes">0</span></p>
+    <p><strong>Leading Candidate(s):</strong> <span id="leading-candidate">N/A</span></p>
+    <p><strong>Your Vote:</strong> <span id="your-vote">Not connected</span></p>
+    <button class="btn-secondary" onclick="window.location.href='/result'">📊 View Vote Records (Database)</button>
+  </div>
+
+  <div class="card">
+    <h2>Live Vote Count</h2>
+    <p class="section-paragraph">
+      The chart below illustrates the real-time distribution of votes among all candidates. It is updated every time a vote is cast.
+    </p>
+    <ul id="vote-counts"></ul>
+    <canvas id="voteChart"></canvas>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

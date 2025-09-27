@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voting Results</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eaf3fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .about-btn {
+      background-color: #3b82f6;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .about-btn:hover {
+      background-color: #2563eb;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .description {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .description h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: #1e3a8a;
+    }
+
+    .description p {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: #3b82f6;
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f5faff;
+    }
+
+    tr:hover {
+      background-color: #e1effe;
+    }
+
+    .no-votes {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blockchain Voting System</h1>
+    <a href="/about" class="about-btn">About</a>
+  </header>
+
+  <main>
+    <section class="description">
+      <h2>Voting Summary</h2>
+      <p>Below are your most recent voting records submitted securely through the blockchain system. Each record includes basic voter details and the selected candidate, ensuring transparency while maintaining anonymity.</p>
+    </section>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Voted For</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for vote in votes %}
+        <tr>
+          <td>{{ vote.id }}</td>
+          <td>{{ vote.name }}</td>
+          <td>{{ vote.age }}</td>
+          <td>{{ vote.vote }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4" class="no-votes">No votes recorded yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
