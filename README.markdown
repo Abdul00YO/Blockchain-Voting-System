@@ -1,152 +1,143 @@
 # 🗳️ Blockchain Voting System
 
-A decentralized, secure, and transparent voting application built on the Ethereum blockchain. This project leverages **Solidity**, **Remix IDE**, **Web3.js**, and **MetaMask** to ensure tamper-proof voting with real-time results visualization.
-
----
-
-## ✨ Features
-
-- **Secure Voting**: Each Ethereum address can cast only one vote, ensuring fairness.  
-- **Real-Time Results**: Displays live vote counts with a dynamic Pie Chart.  
-- **Transparency**: Votes are immutably recorded on the blockchain.  
-- **Voter Verification**: Users can verify their own vote.  
-- **Admin Controls**: Admin can reset the voting session without altering past votes.  
-- **MetaMask Integration**: Seamless wallet authentication for voters.  
-
----
-
-## 🛠️ Tech Stack
-
-- **Smart Contract**: Solidity (`Voting.sol`)  
-- **Blockchain**: Ethereum Testnet (Sepolia/Goerli) via Remix IDE  
-- **Frontend**: HTML, CSS, JavaScript  
-- **Web3 Integration**: Web3.js with MetaMask for wallet interactions  
-- **Visualization**: Chart.js for vote distribution Pie Chart  
+A decentralized voting application (dApp) built using **Solidity**, **Remix IDE**, **MetaMask**, **Web3.js**, and **Flask** with **HTML/CSS/JS** frontend integration.  
+This project allows users to vote securely and transparently on the Ethereum blockchain with real-time results visualization.
 
 ---
 
 ## 📂 Project Structure
 
-```
-📦 Blockchain-Voting-System
-├── 📜 index.html         # Frontend UI
-├── 📜 style.css         # Styling for the frontend
-├── 📜 app.js            # Web3.js logic for blockchain interaction
-├── 📜 Voting.sol        # Solidity smart contract
-└── 📜 README.md         # Project documentation
-```
+BLOCKCHAIN VOTING SYSTEM/  
+&emsp;├── static/  
+&emsp;&emsp;└── app.js          # Frontend logic connecting MetaMask & smart contract  
+&emsp;├── templates/  
+&emsp;&emsp;├── index.html      # Main voting page  
+&emsp;&emsp;├── results.html    # Real-time voting results page  
+&emsp;&emsp;└── about.html      # About the project  
+&emsp;├── app.py              # Flask backend server (routes & rendering templates)  
+&emsp;├── styles.css          # Custom styling for frontend  
+&emsp;├── LICENSE             # License file  
+&emsp;└── README.md           # Project documentation
 
 ---
 
-## ⚙️ Smart Contract Details
+## 🚀 Features
 
-- **Contract Address**: `0xcFcc32d5d1e413a7C9Ed5a02FC3F3f210AbD6036`  
-- **Key Functions**:
-  - `vote(string _candidate)`: Cast a vote for a specific candidate.  
-  - `getCandidates()`: Retrieve the list of candidates.  
-  - `getVotes(string _candidate)`: Get the vote count for a candidate.  
-  - `getTotalVotes()`: Return the total number of votes cast.  
-  - `getVotedCandidate(address voter)`: Check which candidate a voter selected.  
-  - `hasAlreadyVoted(address voter)`: Verify if a voter has already voted.  
-  - `admin()`: Return the admin address of the contract.  
+- 🔐 **Secure Authentication** using MetaMask wallet.  
+- 🗳️ **Decentralized Voting** stored on the Ethereum blockchain.  
+- 📊 **Real-Time Results** with leading candidate detection (handles ties) and pie chart visualization.  
+- 🌐 **Flask Backend** for serving HTML templates.  
+- 🎨 **Responsive UI** with HTML, CSS, and JavaScript.  
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Tech Stack
 
-### Prerequisites
-- **MetaMask**: Installed as a browser extension.  
-- **Ethereum Testnet**: Access to Sepolia or Goerli testnet with test ETH.  
-- **Node.js**: For local development (optional).  
-- **Remix IDE**: For deploying the smart contract.  
-- **Browser**: Chrome or Firefox recommended for MetaMask compatibility.  
-
-### Installation
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/YourGitHub/Blockchain-Voting-System.git
-   cd Blockchain-Voting-System
-   ```
-
-2. **Deploy the Smart Contract**:
-   - Open `Voting.sol` in [Remix IDE](https://remix.ethereum.org/).  
-   - Set the candidate list (e.g., `["Alice", "Bob", "Charlie"]`) in the constructor.  
-   - Deploy to Sepolia/Goerli testnet using MetaMask.  
-   - Copy the deployed contract address and update `app.js` with it.
-
-3. **Run the Frontend**:
-   - Open `index.html` in a browser with MetaMask installed.  
-   - Alternatively, serve locally using a simple server:
-     ```bash
-     npx http-server
-     ```
-   - Access at `http://localhost:8080`.
-
-### Usage
-1. **Connect Wallet**:
-   - Click **Connect Wallet** in the UI to link MetaMask.  
-2. **Cast Vote**:
-   - Select a candidate from the dropdown and click **Vote**.  
-   - Approve the transaction in MetaMask.  
-3. **View Results**:
-   - Check total votes, leading candidate, and your vote.  
-   - The Pie Chart updates in real-time to show vote distribution.  
+**Smart Contract:** Solidity (`Voting.sol`) deployed via Remix IDE  
+**Frontend:** HTML, CSS, JavaScript, Chart.js (for pie chart)  
+**Blockchain Integration:** Web3.js + MetaMask  
+**Backend:** Flask (Python)
 
 ---
 
-## 📸 Screenshots
+## 📋 Prerequisites
 
-*(Add screenshots here, e.g., UI, Pie Chart, MetaMask transaction confirmation)*  
-- Voting interface  
-- Real-time vote distribution chart  
-- MetaMask wallet connection  
-
----
-
-## 🔒 Security Features
-
-- **Single-Vote Restriction**: Enforced by the smart contract to prevent double voting.  
-- **Immutable Votes**: Blockchain ensures votes cannot be altered or deleted.  
-- **Transparent Results**: All vote data is publicly verifiable on the blockchain.  
-- **Admin Restrictions**: Admin can reset the session but cannot modify votes.  
+Make sure you have installed:  
+- Node.js  
+- Python 3  
+- Flask (`pip install flask`)  
+- MetaMask browser extension  
+- Remix IDE (for contract compilation & deployment)
 
 ---
 
-## 🔮 Future Enhancements
+## ⚡ Setup Instructions
 
-- **Voter Registration**: Add eligibility checks for voters.  
-- **Private Voting**: Implement Zero-Knowledge Proofs (zk-SNARKs) for anonymity.  
-- **Mainnet Deployment**: Scale to Ethereum Mainnet for real-world use.  
-- **Advanced Analytics**: Build a dashboard for detailed vote insights.  
-- **Improved UI/UX**: Enhance responsiveness and accessibility.  
+1. Clone the repository  
+    git clone https://github.com/your-username/blockchain-voting-system.git  
+    cd blockchain-voting-system
+
+2. Install Flask  
+    pip install flask
+
+3. Deploy Smart Contract  
+   - Open Remix IDE (https://remix.ethereum.org/)  
+   - Compile and deploy `Voting.sol` with your candidate list, for example: `["Alice","Bob","Charlie"]`  
+   - Copy the deployed **contract address** and **ABI**
+
+4. Configure the frontend (static/app.js)  
+   - Open `static/app.js` and replace the placeholders:  
+       const contractAddress = "YOUR_DEPLOYED_CONTRACT_ADDRESS";  
+       const contractABI = [ /* YOUR ABI HERE */ ];
+
+5. Run the Flask app  
+    python app.py  
+   - Open `http://127.0.0.1:5000/` in your browser
+
+6. Connect MetaMask  
+   - Switch MetaMask to the same testnet you used for deployment (e.g., Sepolia/Goerli)  
+   - Connect your wallet on the frontend and cast a vote
 
 ---
 
-## 📜 License
+## 📊 App Flow / How It Works
 
-This project is licensed under the [MIT License](LICENSE) – free to use, modify, and distribute.
+1. Smart contract is deployed with an initial candidate list.  
+2. User visits the Flask-served front end and connects MetaMask.  
+3. User selects a candidate and clicks **Vote** — MetaMask asks to sign the transaction.  
+4. Smart contract enforces one vote per address and increments the candidate's vote count.  
+5. Frontend fetches vote counts and updates the pie chart and leader(s) in real time.
+
+---
+
+## 🔐 Security Notes
+
+- `hasVoted` mapping prevents double voting (one address → one vote).  
+- Votes are recorded immutably on-chain — they cannot be changed after submission.  
+- Always test on a testnet before deploying to mainnet.  
+- Admin-only dangerous operations (like resetting votes) should be used only for demos and protected with proper access control.
+
+---
+
+## 📷 Screenshots
+
+(Place screenshots in repo or `docs/` and reference them here — e.g., Voting page, Results page, MetaMask confirm dialog.)
+
+---
+
+## 🔮 Future Improvements
+
+- Voter registration and eligibility checks (off-chain or on-chain).  
+- Use zk-proofs for private/verifiable voting.  
+- Add role-based admin panel (view-only vs admin actions).  
+- Responsive UI improvements and mobile testing.  
+- Export results (CSV) and historical election handling.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions to improve the project!  
-1. Fork the repository.  
-2. Create a feature branch: `git checkout -b feature/your-feature`.  
-3. Commit your changes: `git commit -m "Add your feature"`.  
-4. Push to the branch: `git push origin feature/your-feature`.  
-5. Open a Pull Request.  
+1. Fork the repository  
+2. Create a feature branch: `git checkout -b feature-name`  
+3. Commit your changes: `git commit -m "Add some feature"`  
+4. Push to the branch: `git push origin feature-name`  
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License — see the `LICENSE` file for details.
 
 ---
 
 ## 👨‍💻 Author
 
-- **Your Name**  
-- GitHub: [YourGitHub](https://github.com/YourGitHub)  
-- Email: your.email@example.com  
+Your Name — GitHub: https://github.com/your-username
 
 ---
 
-## ⭐ Support
-
-If you find this project useful, please **star the repository** on GitHub! Your support helps us grow and improve.
+If you want, I can:
+- Replace placeholders with your real contract address & ABI,
+- Produce a nice `README` screenshot or a PDF, or
+- Add a short GitHub repo description and topics for the repo page.
