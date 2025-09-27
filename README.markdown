@@ -97,11 +97,7 @@ Make sure you have installed:
 - Always test on a testnet before deploying to mainnet.  
 - Admin-only dangerous operations (like resetting votes) should be used only for demos and protected with proper access control.
 
----
 
-## 📷 Screenshots
-
-(Place screenshots in repo or `docs/` and reference them here — e.g., Voting page, Results page, MetaMask confirm dialog.)
 
 ---
 
@@ -133,7 +129,7 @@ This project is licensed under the MIT License — see the `LICENSE` file for de
 
 ## 👨‍💻 Author
 
-Your Name — GitHub: https://github.com/your-username
+Abdullah Arshad — GitHub: https://github.com/Abdul00YO
 
 ---
 
